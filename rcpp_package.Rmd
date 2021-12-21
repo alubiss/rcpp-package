@@ -1,0 +1,12 @@
+---
+title: "rcpp_package"
+output: html_document
+author: "Aleksandra Lubicka"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(Rcpp)
+library(optionPricer2)
+```
+

@@ -1,0 +1,5 @@
+"0","knitr::opts_chunk$set(echo = TRUE)"
+"0","library(Rcpp)"
+"0","library(rcppPackage)"
+"2","Błąd w poleceniu 'library(rcppPackage)':nie ma pakietu o nazwie ‘rcppPackage’
+"
