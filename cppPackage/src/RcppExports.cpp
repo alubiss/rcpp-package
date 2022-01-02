@@ -5,9 +5,26 @@
 
 using namespace Rcpp;
 
+// getPutUpAndIn
+double getPutUpAndIn(int nInt, double S0, double StrikeK, double VolR, double Rfr, double Time, int nReps);
+RcppExport SEXP _cppPackage_getPutUpAndIn(SEXP nIntSEXP, SEXP S0SEXP, SEXP StrikeKSEXP, SEXP VolRSEXP, SEXP RfrSEXP, SEXP TimeSEXP, SEXP nRepsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< int >::type nInt(nIntSEXP);
+    Rcpp::traits::input_parameter< double >::type S0(S0SEXP);
+    Rcpp::traits::input_parameter< double >::type StrikeK(StrikeKSEXP);
+    Rcpp::traits::input_parameter< double >::type VolR(VolRSEXP);
+    Rcpp::traits::input_parameter< double >::type Rfr(RfrSEXP);
+    Rcpp::traits::input_parameter< double >::type Time(TimeSEXP);
+    Rcpp::traits::input_parameter< int >::type nReps(nRepsSEXP);
+    rcpp_result_gen = Rcpp::wrap(getPutUpAndIn(nInt, S0, StrikeK, VolR, Rfr, Time, nReps));
+    return rcpp_result_gen;
+END_RCPP
+}
 // rcpp_hello_world
 List rcpp_hello_world();
-RcppExport SEXP _optionPricer2_rcpp_hello_world() {
+RcppExport SEXP _cppPackage_rcpp_hello_world() {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -17,11 +34,12 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_optionPricer2_rcpp_hello_world", (DL_FUNC) &_optionPricer2_rcpp_hello_world, 0},
+    {"_cppPackage_getPutUpAndIn", (DL_FUNC) &_cppPackage_getPutUpAndIn, 7},
+    {"_cppPackage_rcpp_hello_world", (DL_FUNC) &_cppPackage_rcpp_hello_world, 0},
     {NULL, NULL, 0}
 };
 
-RcppExport void R_init_optionPricer2(DllInfo *dll) {
+RcppExport void R_init_cppPackage(DllInfo *dll) {
     R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
     R_useDynamicSymbols(dll, FALSE);
 }

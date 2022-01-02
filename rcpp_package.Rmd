@@ -4,9 +4,62 @@ output: html_document
 author: "Aleksandra Lubicka"
 ---
 
+This document demonstrates the use of a library using the Rcpp package.
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(Rcpp)
-library(optionPricer2)
+library(devtools)
+library(ggplot2)
+load_all('/Users/alubis/Desktop/Rcpp/cppPackage')
 ```
 
+The first step was to prepare a function for Put Up and In option. The specification of this option is that, the price has to increase to reach the barrier and it activated when asset price reaches the barrier. In this special case we have the main parameters set to the following values:
+- price of the underyling at the moment of option pricing: S0 = 105,
+- strike price StrikeK = 100,
+- annualized volatility rate VolR = 0.22,
+- annualized risk-free rate Rfr = 0.05
+- time to maturity Time = 0.5
+
+Now we can call the function in R by loading the function prepared with Rcpp.
+
+```{r}
+basicPutUpAndIn <- function() {
+   return(getPutUpAndIn(nReps = 1000))
+}
+x = basicPutUpAndIn()
+x
+```
+
+Above is the function with its default settings described above.
+
+The relation between the theoretical price of the option and volatility of the underlying instrument returns is presented below.
+```{r}
+volatilityFunction <- function(volatility) {
+   return(getPutUpAndIn(nInt = 1000, VolR = volatility, nReps = 1000))
+}
+```
+
+We make the function dependent on the volatility value and show this dependence in a graph.
+```{r, fig.align='center'}
+volatility_values <- seq(0.1, 0.3, by = 0.001)
+results <- sapply(volatility_values, volatilityFunction)
+dane <- data.frame(volatility_values,results)
+ggplot(dane, aes(volatility_values, results))+ geom_point() + geom_smooth(method="gam")
+```
+
+We do the same for time to maturity of the option.
+
+```{r}
+timeFunction <- function(time) {
+   return(getPutUpAndIn(nInt = 1000, Time = time, nReps = 100))
+}
+```
+
+
+```{r, fig.align='center'}
+time_values <- seq(0.01, 0.6, by = 0.001)
+results <- sapply(time_values, timeFunction)
+dane <- data.frame(time_values,results)
+ggplot(dane, aes(time_values, results))+ geom_point() + geom_smooth(method="gam")
+```
