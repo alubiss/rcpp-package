@@ -79,15 +79,13 @@ double EuropeanOption::getPutUpAndIn(int nReps){
   
   double rollingSum = 0.0;
   double thisMax = 0.0;
-  double barrier = 85;
+  double barrier = 0;
   
   for(int i = 0; i < nReps; i++){
     	generatePath();
     	thisMax = getMaxEuropeanPrice();
-    		if (thisMax > barrier){
-      			double PayOff = strike - thisPath[i-1];
-      			if (PayOff > 0) 
-				rollingSum += PayOff;
+    		if (thisMax >= barrier){
+				rollingSum += thisMax - strike;
     }
   }
   

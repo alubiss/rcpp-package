@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(Rcpp)
 library(devtools)
 library(ggplot2)
-load_all('/Users/alubis/Desktop/Rcpp/cppPackage')
+load_all('/Users/alubis/rcpp-package/cppPackage')
 ```
 
 The first step was to prepare a function for Put Up and In option. The specification of this option is that, the price has to increase to reach the barrier and it activated when asset price reaches the barrier. In this special case we have the main parameters set to the following values:
@@ -41,7 +41,7 @@ volatilityFunction <- function(volatility) {
 ```
 
 We make the function dependent on the volatility value and show this dependence in a graph.
-```{r, fig.align='center'}
+```{r}
 volatility_values <- seq(0.1, 0.3, by = 0.001)
 results <- sapply(volatility_values, volatilityFunction)
 dane <- data.frame(volatility_values,results)
@@ -52,12 +52,12 @@ We do the same for time to maturity of the option.
 
 ```{r}
 timeFunction <- function(time) {
-   return(getPutUpAndIn(nInt = 1000, Time = time, nReps = 100))
+   return(getPutUpAndIn(nInt = 1000, Time = time, nReps = 1000))
 }
 ```
 
 
-```{r, fig.align='center'}
+```{r}
 time_values <- seq(0.01, 0.6, by = 0.001)
 results <- sapply(time_values, timeFunction)
 dane <- data.frame(time_values,results)
